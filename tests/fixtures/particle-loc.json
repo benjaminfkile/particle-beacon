@@ -1,0 +1,35 @@
+{
+  "event": "loc",
+  "deviceId": "e00fce68aaaaaaaaaaaaaaaa",
+  "publishedAt": "2026-10-27T20:29:38.164Z",
+  "payload": {
+    "cmd": "loc",
+    "time": 1793132968,
+    "loc": {
+      "lck": 1,
+      "time": 1793132969,
+      "lat": 46.8721,
+      "lon": -113.994,
+      "alt": 975.72,
+      "hd": 328.64,
+      "spd": 0.06,
+      "h_acc": 13,
+      "hdop": 1.8,
+      "v_acc": 15,
+      "vdop": 100,
+      "cell": 70,
+      "batt": 97.8,
+      "temp": 20.5
+    },
+    "trig": ["time"],
+    "towers": [
+      { "rat": "lte", "mcc": 310, "mnc": 410, "lac": 1, "cid": 1, "str": -86 },
+      { "nid": 1, "ch": 5110, "str": -86 }
+    ],
+    "wps": [
+      { "bssid": "02:00:00:00:00:01", "ch": 8, "str": -31 },
+      { "bssid": "02:00:00:00:00:02", "ch": 1, "str": -41 }
+    ],
+    "req_id": 22
+  }
+}

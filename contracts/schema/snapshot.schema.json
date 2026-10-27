@@ -1,0 +1,816 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "type": "integer"
+    },
+    "event": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "year": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "statusId": {
+          "type": "integer"
+        },
+        "scheduledAt": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "wentLiveAt": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "endedAt": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "fundsPercent": {
+          "type": "integer"
+        },
+        "flightHistory": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "routeId": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "points": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "lat": {
+                    "type": "number"
+                  },
+                  "lng": {
+                    "type": "number"
+                  },
+                  "recordedAt": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "format": "date-time"
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "latestMessage": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "body": {
+              "type": "string"
+            },
+            "createdAt": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          "additionalProperties": false
+        },
+        "alerts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "statusId": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "messageId": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "subject": {
+                "type": "string"
+              },
+              "message": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "createdAt": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "id",
+              "kind",
+              "statusId",
+              "messageId",
+              "subject",
+              "message",
+              "createdAt"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "trackerBbox": {
+          "type": "object",
+          "properties": {
+            "west": {
+              "type": "number"
+            },
+            "south": {
+              "type": "number"
+            },
+            "east": {
+              "type": "number"
+            },
+            "north": {
+              "type": "number"
+            }
+          },
+          "additionalProperties": false
+        },
+        "trackerStartView": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "center": {
+              "type": "object",
+              "properties": {
+                "lat": {
+                  "type": "number"
+                },
+                "lng": {
+                  "type": "number"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "lat",
+                "lng"
+              ]
+            },
+            "zoom": {
+              "type": "integer",
+              "minimum": 3,
+              "maximum": 18
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "center",
+            "zoom"
+          ]
+        },
+        "trackerMap": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "bbox": {
+              "type": "object",
+              "properties": {
+                "west": {
+                  "type": "number"
+                },
+                "south": {
+                  "type": "number"
+                },
+                "east": {
+                  "type": "number"
+                },
+                "north": {
+                  "type": "number"
+                }
+              },
+              "additionalProperties": false
+            },
+            "minZoom": {
+              "type": "integer"
+            },
+            "maxZoom": {
+              "type": "integer"
+            },
+            "terrainMaxZoom": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "tilesUrl": {
+              "type": "string"
+            },
+            "terrainUrl": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "alerts",
+        "trackerBbox",
+        "trackerStartView",
+        "trackerMap"
+      ],
+      "additionalProperties": false
+    },
+    "qrCodes": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "pageSlug": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "forwardUrl": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "sponsors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "websiteUrl": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "fbUrl": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "igUrl": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "logoMediaId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "latestYear": {
+            "type": "integer"
+          },
+          "yearsAsSponsor": {
+            "type": "integer"
+          },
+          "lingerMs": {
+            "type": "integer"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "sponsorsYear": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "cookieTypes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "icon": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "source": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "display": true
+            },
+            "additionalProperties": false
+          },
+          "sort": {
+            "type": "integer"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "content": true,
+    "media": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "width": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "height": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "alt": {
+            "type": "string"
+          },
+          "variants": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "dzi": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "dark": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "url": {
+                "type": "string"
+              },
+              "variants": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            },
+            "additionalProperties": false
+          },
+          "invertInDark": {
+            "type": "boolean"
+          },
+          "small": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "url": {
+                "type": "string"
+              },
+              "variants": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              },
+              "dark": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "url": {
+                    "type": "string"
+                  },
+                  "variants": {
+                    "$ref": "#/properties/media/additionalProperties/properties/dark/properties/variants"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "invertInDark": {
+                "type": "boolean"
+              }
+            },
+            "additionalProperties": false
+          },
+          "smallMediaId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "credit": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "durationMs": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "posterMediaId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "icons": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "routeMap": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "path": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "lat": {
+                "type": "number"
+              },
+              "lng": {
+                "type": "number"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "timeline": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "minutes": {
+                "type": "integer"
+              },
+              "lat": {
+                "type": "number"
+              },
+              "lng": {
+                "type": "number"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "durationMinutes": {
+          "type": "integer"
+        },
+        "timed": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "routeMapConfig": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "display": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "timeLabelIntervalMinutes": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "arrows": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "arrowSize": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "routeWidth": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "labelSize": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "controls": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "fullscreen": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "terrain": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "routeView": {
+      "type": "object",
+      "properties": {
+        "bbox": {
+          "type": "object",
+          "properties": {
+            "west": {
+              "type": "number"
+            },
+            "south": {
+              "type": "number"
+            },
+            "east": {
+              "type": "number"
+            },
+            "north": {
+              "type": "number"
+            }
+          },
+          "additionalProperties": false
+        },
+        "map": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "bbox": {
+              "$ref": "#/properties/event/properties/trackerMap/properties/bbox"
+            },
+            "minZoom": {
+              "type": "integer"
+            },
+            "maxZoom": {
+              "type": "integer"
+            },
+            "terrainMaxZoom": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "tilesUrl": {
+              "type": "string"
+            },
+            "terrainUrl": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "bbox",
+        "map"
+      ],
+      "additionalProperties": false
+    },
+    "trackerThemes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "renderer": {
+            "type": "string"
+          },
+          "key": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "styleUrl": {
+            "type": "string"
+          },
+          "spriteUrl": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "thumbnailMediaId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "chrome": {
+            "type": "object",
+            "properties": {
+              "bg": {
+                "type": "string"
+              },
+              "fg": {
+                "type": "string"
+              },
+              "text": {
+                "type": "string"
+              },
+              "tile": {
+                "type": "string"
+              },
+              "tileFg": {
+                "type": "string"
+              },
+              "panel": {
+                "type": "string"
+              },
+              "accent": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          "overlay": {
+            "type": "object",
+            "properties": {
+              "routeColor": {
+                "type": "string"
+              },
+              "routeOpacity": {
+                "type": "number"
+              },
+              "arrowColor": {
+                "type": "string"
+              },
+              "timeLabelBg": {
+                "type": "string"
+              },
+              "timeLabelFg": {
+                "type": "string"
+              },
+              "timeLabelOpacity": {
+                "type": "number"
+              },
+              "userColor": {
+                "type": "string"
+              },
+              "headingColor": {
+                "type": "string",
+                "pattern": "^#[0-9a-fA-F]{6}([0-9a-fA-F]{2})?$"
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "headingColor"
+            ]
+          },
+          "defaultLightMode": {
+            "type": "boolean"
+          },
+          "defaultDarkMode": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "cookieLimitPerPerson": {
+      "type": "integer"
+    },
+    "signUpsOpen": {
+      "type": "boolean"
+    },
+    "subscriptionsOpen": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "routeMap",
+    "routeMapConfig",
+    "routeView",
+    "trackerThemes",
+    "cookieLimitPerPerson",
+    "signUpsOpen",
+    "subscriptionsOpen"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wmsfo.dev/schema/site-settings.schema.json",
+  "title": "SiteSettings",
+  "description": "Site settings block that publishes with the pages (contracts 1.3a).",
+  "type": "object",
+  "properties": {
+    "siteName": { "$ref": "https://wmsfo.dev/schema/primitives.schema.json#/$defs/Inline" },
+    "tagline": { "$ref": "https://wmsfo.dev/schema/primitives.schema.json#/$defs/InlineNullable" },
+    "homeNavLabel": { "$ref": "https://wmsfo.dev/schema/primitives.schema.json#/$defs/Inline" },
+    "logo": { "$ref": "https://wmsfo.dev/schema/primitives.schema.json#/$defs/IconNullable" },
+    "favicon": { "$ref": "https://wmsfo.dev/schema/primitives.schema.json#/$defs/IconNullable" },
+    "theme": {
+      "type": "object",
+      "properties": {
+        "snowDefault": { "type": "boolean" },
+        "lightsDefault": { "type": "boolean" },
+        "ornaments": { "type": "boolean" },
+        "cardOpacityLight": { "$ref": "https://wmsfo.dev/schema/primitives.schema.json#/$defs/CardOpacity" },
+        "cardOpacityDark": { "$ref": "https://wmsfo.dev/schema/primitives.schema.json#/$defs/CardOpacity" }
+      },
+      "required": ["snowDefault", "lightsDefault"],
+      "additionalProperties": false
+    },
+    "navExtraLinks": {
+      "type": "array",
+      "items": { "$ref": "https://wmsfo.dev/schema/primitives.schema.json#/$defs/Link" },
+      "minItems": 0,
+      "maxItems": 5
+    },
+    "footerLinks": {
+      "type": "array",
+      "items": { "$ref": "https://wmsfo.dev/schema/primitives.schema.json#/$defs/Link" },
+      "minItems": 0,
+      "maxItems": 10
+    },
+    "footerText": { "$ref": "https://wmsfo.dev/schema/primitives.schema.json#/$defs/InlineNullable" },
+    "contactEmail": {
+      "oneOf": [
+        { "type": "string", "minLength": 3, "maxLength": 254, "format": "email" },
+        { "type": "null" }
+      ]
+    },
+    "donateUrl": {
+      "oneOf": [
+        { "type": "string", "minLength": 1, "maxLength": 2048, "pattern": "^https://\\S+$" },
+        { "type": "null" }
+      ]
+    },
+    "analyticsEnabled": { "type": "boolean" },
+    "logoMedia": {
+      "oneOf": [
+        { "$ref": "https://wmsfo.dev/schema/primitives.schema.json#/$defs/MediaRef" },
+        { "type": "null" }
+      ]
+    },
+    "headerShowsSiteName": { "type": ["boolean", "null"] },
+    "headerLinks": {
+      "type": "array",
+      "items": { "$ref": "https://wmsfo.dev/schema/primitives.schema.json#/$defs/Link" },
+      "minItems": 0,
+      "maxItems": 3
+    },
+    "landmarks": {
+      "type": "array",
+      "items": { "$ref": "https://wmsfo.dev/schema/primitives.schema.json#/$defs/Landmark" },
+      "minItems": 0,
+      "maxItems": 50
+    },
+    "places": {
+      "type": "object",
+      "properties": {
+        "tracker": {
+          "type": "object",
+          "properties": {
+            "kinds": {
+              "type": "array",
+              "items": { "enum": ["attraction", "business", "government", "medical", "park", "place_of_worship", "school", "sports_complex", "transit"] },
+              "minItems": 0,
+              "maxItems": 9,
+              "uniqueItems": true
+            }
+          },
+          "required": ["kinds"],
+          "additionalProperties": false
+        },
+        "routeMap": {
+          "type": "object",
+          "properties": {
+            "kinds": {
+              "type": "array",
+              "maxItems": 100,
+              "items": { "type": "string", "minLength": 1, "maxLength": 50, "pattern": "^[a-z0-9_]+$" }
+            }
+          },
+          "required": ["kinds"],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "tracker": {
+      "type": "object",
+      "properties": {
+        "defaultBbox": { "$ref": "https://wmsfo.dev/schema/primitives.schema.json#/$defs/Bbox" }
+      },
+      "required": ["defaultBbox"],
+      "additionalProperties": false
+    },
+    "route": {
+      "type": "object",
+      "properties": {
+        "routeId": { "type": ["integer", "null"], "minimum": 1 },
+        "mapConfig": {
+          "oneOf": [
+            { "$ref": "https://wmsfo.dev/schema/primitives.schema.json#/$defs/RouteMapConfig" },
+            { "type": "null" }
+          ]
+        }
+      },
+      "required": ["routeId"],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "siteName", "tagline", "homeNavLabel", "logo", "favicon", "theme",
+    "navExtraLinks", "footerLinks", "footerText", "contactEmail", "donateUrl", "analyticsEnabled"
+  ],
+  "additionalProperties": false
+}

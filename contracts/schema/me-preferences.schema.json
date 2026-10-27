@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "theme": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "light",
+        "dark",
+        null
+      ]
+    },
+    "tracker": {
+      "type": "object",
+      "properties": {
+        "flightHistory": {
+          "type": "boolean"
+        },
+        "timeLabels": {
+          "type": "boolean"
+        },
+        "landmarks": {
+          "type": "boolean"
+        },
+        "flightDock": {
+          "type": "boolean"
+        },
+        "cookieTally": {
+          "type": "boolean"
+        },
+        "snow": {
+          "type": "boolean"
+        },
+        "mapType": {
+          "type": "string",
+          "enum": [
+            "terrain",
+            "roadmap"
+          ]
+        },
+        "theme": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]{1,39}$"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "theme",
+    "tracker"
+  ]
+}
