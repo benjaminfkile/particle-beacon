@@ -62,6 +62,7 @@ export interface HttpServer {
 }
 
 const DEFAULT_MAX_BODY_BYTES = 65_536;
+const DRAIN_TIMEOUT_MS = 2000;
 const AUTH_WARN_INTERVAL_MS = 60_000;
 const BODY_PREVIEW_CHARS = 80;
 
@@ -144,6 +145,35 @@ function payloadOf(body: unknown): unknown {
   } catch {
     return null;
   }
+}
+
+/**
+ * After a 413 the rest of the request body is read and discarded so the
+ * client receives the answer before the connection closes (a socket closed
+ * with unread bytes resets the connection and the client never sees the
+ * status). The drain is bounded: the socket is destroyed once another
+ * `maxBytes` arrive or after two seconds, whichever comes first.
+ */
+function drainThenClose(req: IncomingMessage, maxBytes: number): void {
+  const socket = req.socket;
+  let drained = 0;
+  const finish = () => {
+    clearTimeout(timer);
+    if (!socket.destroyed) socket.end();
+  };
+  const timer = setTimeout(() => {
+    if (!socket.destroyed) socket.destroy();
+  }, DRAIN_TIMEOUT_MS);
+  req.on("data", (chunk: Buffer) => {
+    drained += chunk.length;
+    if (drained > maxBytes && !socket.destroyed) {
+      clearTimeout(timer);
+      socket.destroy();
+    }
+  });
+  req.on("end", finish);
+  req.on("error", finish);
+  req.resume();
 }
 
 /** Reads the body into a string, or null when it exceeds maxBytes. */
@@ -274,7 +304,7 @@ export function startHttpServer(opts: HttpServerOptions): HttpServer {
         res,
         413,
         errorBody("payload_too_large", `body exceeds ${maxBodyBytes} bytes`),
-        () => req.socket.destroy(),
+        () => drainThenClose(req, maxBodyBytes),
         { Connection: "close" },
       );
       return;
